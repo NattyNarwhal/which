@@ -1,0 +1,83 @@
+.Dd Jan 12, 2020
+.Dt WHICH 1
+.Os
+.Sh NAME
+.Nm which
+.Nd show the full path of programs
+.Sh SYNOPSIS
+.Nm
+.Op Fl aps
+.Op Fl -
+.Ar programs
+.Op ...
+.Sh DESCRIPTION
+The
+.Nm
+utility finds the full, absolute path of programs, from the names passed as
+arguments combined with entries from the
+.Ev PATH
+environment variable. The
+.Ev PATH
+environment variable is used by system and library calls like
+.Xr execve 2
+to locate programs without absolute path names given. As such, it can be useful
+to know how these paths are resolved. A full description of how a Linux system
+does this can be found (if available) in the
+.Xr path_resolution 7
+manual page, from the Linux man-pages project.
+.Pp
+If a program name, contains a slash (making it have absolute or relative
+directory components),
+.Ev PATH
+will not be checked, and the existence of the program in the directory given
+will be checked instead. This emulates GNU which behaviour.
+.Pp
+If
+.Ev PATH
+is empty or not set, a system default path is used. It should be noted that
+directories in
+.Ev PATH
+cannot contain colons, as these are used to seperate entries. Shell alias
+expansion is not supported.
+.Pp
+The options are as follows:
+.Bl -tag -width indent
+.It Fl a
+Shows all possible full paths to the program, not just the first.
+.It Fl p
+Prints the program name before each path. This somewhat emulates a simpler
+version of
+.Xr whereis 1
+behaviour, with just binary locating.
+.It Fl s
+Don't print anything, just return if any entries were found.
+.El
+.Sh EXIT STATUS
+The
+.Nm
+utility returns the following exit codes:
+.Bl -tag -width ident
+.It 0
+All program names given could be resolved to full paths.
+.It 1
+Not all (but some) program names given could be resolved to full paths.
+.It 2
+No program names given could be resolved to full paths, or there was an error
+calling the program (for example, invalid flags, no arguments, or allocation
+errors).
+.El
+.Sh STANDARDS
+The
+.Nm
+command is not a part of POSIX, SUS, or any other standard; however, it is a
+.Em de-facto
+part of most Unices, even the most conservative ones like AIX and HP-UX.
+.Pp
+The
+.Fl s
+flag is a FreeBSD extension, and the
+.Fl a
+flag is a GNU extension present in most modern which implementations.
+.Sh CREDITS
+This manual page and program was written by
+.An Calvin Buckley Aq Mt calvin@cmpct.info .
