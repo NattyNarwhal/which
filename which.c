@@ -169,20 +169,20 @@ main (int argc, char **argv)
   int errors = 0, attempts = 0, ch;
   argv0 = argv[0];
   while ((ch = getopt(argc, argv, "asp")) != -1) {
-		switch (ch) {
-		case 'a':
+    switch (ch) {
+    case 'a':
       try_all = true;
-			break;
+      break;
     case 'p':
       prefix_name = true;
       break;
     case 's':
       quiet = true;
       break;
-		default:
-			usage();
-		}
-	}
+    default:
+      usage();
+    }
+  }
   if (argc == optind) { /* no args */
     usage();    
   }
